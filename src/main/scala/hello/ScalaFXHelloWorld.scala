@@ -1,4 +1,8 @@
 /*
+ * Copyright (c) 2015, Tomas Nesrovnal (nesrotom@fit.cvut.cz)
+ * This is a semestral work for MI-PSL 2015 (programming in scala) lecture
+ * on FIT CTU. See: https://edux.fit.cvut.cz/courses/MI-PSL/
+ *
  * Copyright (c) 2011-2015, ScalaFX Project
  * All rights reserved.
  *
@@ -37,37 +41,79 @@ import scalafx.scene.paint.Color._
 import scalafx.scene.paint.{LinearGradient, Stops}
 import scalafx.scene.text.Text
 
-object ScalaFXHelloWorld extends JFXApp {
+import scalafx.scene.shape.Rectangle
+import scalafx.Includes._ // when
 
-  stage = new PrimaryStage {
-    title = "ScalaFX Hello World"
-    scene = new Scene {
-      fill = Black
-      content = new HBox {
-        padding = Insets(20)
-        children = Seq(
-          new Text {
-            text = "Hello "
-            style = "-fx-font-size: 100pt"
-            fill = new LinearGradient(
-              endX = 0,
-              stops = Stops(PaleGreen, SeaGreen))
-          },
-          new Text {
-            text = "World!!!"
-            style = "-fx-font-size: 100pt"
-            fill = new LinearGradient(
-              endX = 0,
-              stops = Stops(Cyan, DodgerBlue)
-            )
-            effect = new DropShadow {
-              color = DodgerBlue
-              radius = 25
-              spread = 0.25
-            }
-          }
-        )
-      }
-    }
-  }
+import scalafx.scene.image.{Image, ImageView}
+
+import scalafx.scene.control.Button
+
+import scalafx.event.ActionEvent
+
+
+object ScalaFXHelloWorld extends JFXApp {
+	stage = new PrimaryStage {
+	title = "nesrotom MI-PSL 2015 semestral work"
+	scene = new Scene {
+
+	val rect = new Rectangle {
+		x = 25
+		y = 40
+		width = 100
+		height = 100
+		fill <== when (hover) choose Green otherwise Red
+	}
+
+	val rect2 = new Rectangle {
+		x = 50
+		y = 100
+		width = 10
+		height = 10
+		fill = Black
+	}
+
+	val btn = new Button("click me") {
+	}
+
+	btn.onAction = {ae: ActionEvent => rect2.fill = White }
+
+	fill = Grey
+	content = new HBox {
+	padding = Insets(20)
+	children = Seq(
+		new Text {
+			text = "MI-PSL "
+			style = "-fx-font-size: 10pt"
+			fill = new LinearGradient(
+			endX = 0,
+			stops = Stops(PaleGreen, SeaGreen))
+		},
+		new Text {
+			text = "is the best :D"
+			style = "-fx-font-size: 10pt"
+			fill = new LinearGradient(
+				endX = 0,
+				stops = Stops(Cyan, DodgerBlue)
+			)
+			effect = new DropShadow {
+				color = DodgerBlue
+				radius = 25
+				spread = 0.25
+			}
+		},
+		rect,
+		rect2,
+		btn,
+		new ImageView {
+			//image = new Image(this.getClass.getResourceAsStream("/scalafx/ensemble/images/icon-48x48.png"))
+			image = new Image("http://www.scala-lang.org/resources/img/scala-logo.png")
+			fitHeight = 50
+			fitWidth = 150
+			preserveRatio = true
+			smooth = true
+		}
+	)
+	}
+	}
+	}
 }
